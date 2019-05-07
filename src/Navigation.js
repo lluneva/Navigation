@@ -1,9 +1,47 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
 
 import styled from "styled-components";
 
-const LinkItem = styled.a`
+const Dropdown = styled.ul`
+  /* position: relative;
+  display: inline-block ; */
+
+`;
+const ButtonNav = styled.li`
+float: left;
+			position: relative;
+			width: 150px;
+			list-style: none;
+			-webkit-transition: .5s;
+			transition: .5s;
+:hover{
+  background: #ddd
+}
+
+:active{
+  background-color: pink;
+}
+:hover>ul{
+  visibility: visible
+}
+&.current{
+  background-color: yellow;
+}
+`;
+
+const DropdownContent = styled.ul`
+	visibility: hidden;
+  position: absolute;
+  left: 0;
+	top: 100%;
+  background-color: #f1f1f1;
+  /* min-width: 160px; */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+`;
+
+const LinkItem = styled.li`
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -14,78 +52,29 @@ const LinkItem = styled.a`
     background-color: #ddd;
   }
 `;
-const DropdownContent = styled.div`
-  /* display: none; */
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-`;
-
-const Dropdown = styled.div`
-  position: relative;
-  display: inline-block;
-`;
 
 class Navigation extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      showMenu: false
-    };
-
-    this.showMenu = this.showMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
-  }
-
-  showMenu(event) {
-    event.preventDefault();
-
-    this.setState({ showMenu: true }, () => {
-      document.addEventListener("click", this.closeMenu);
-    });
-  }
-
-  closeMenu(event) {
-    if (!this.dropdownMenu.contains(event.target)) {
-      this.setState({ showMenu: false }, () => {
-        document.removeEventListener("click", this.closeMenu);
-      });
-    }
-  }
 
   render() {
     return (
       <Dropdown>
-        <Button>Sakums</Button>
+        <ButtonNav > Sakums</ButtonNav>
+        <ButtonNav > <a href="/pirmsskola">Pirmsskola</a>
+        <DropdownContent>
+          <LinkItem>  Dienas kartiba </LinkItem>
+          <LinkItem href="www.tvnet.lv"> Macibu process </LinkItem>
+          <LinkItem href="www.tvnet.lv"> Nodarbibas </LinkItem>
+        </DropdownContent>
+        </ButtonNav>
+       
 
-        <Button onClick={this.showMenu}> Pirmsskola</Button>
-        
-        {this.state.showMenu ? (
-          <DropdownContent
-            className="menu"
-            ref={element => {
-              this.dropdownMenu = element;
-            }}
-          >
-            <LinkItem href="www.tvnet.lv"> Dienas kartiba </LinkItem>
-            <LinkItem href="www.tvnet.lv"> Macibu process </LinkItem>
-            <LinkItem href="www.tvnet.lv"> Nodarbibas </LinkItem>
-          </DropdownContent>
-        ) : null}
-        <Button onClick={this.showMenu}> Sakumskola</Button>
-        {/* {this.state.showMenu ? (
-          <DropdownContent
-          className="menu"
-          ref={element => {
-            this.dropdownMenu = element;
-          }}>
-            <LinkItem href="www.tvnet.lv"> Nodarbibas </LinkItem>
-            <LinkItem href="www.tvnet.lv"> Macibu process </LinkItem>
-          </DropdownContent>
-        ) : null} */}
+        <ButtonNav > <a href="/pirmsskola">Sakumskola</a>
+        <DropdownContent>
+          <LinkItem>  Dienas kartiba </LinkItem>
+          <LinkItem href="www.tvnet.lv"> Macibu process </LinkItem>
+          <LinkItem href="www.tvnet.lv"> Nodarbibas </LinkItem>
+        </DropdownContent>
+        </ButtonNav>
       </Dropdown>
     );
   }
